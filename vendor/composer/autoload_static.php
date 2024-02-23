@@ -4,31 +4,33 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit3f161f1866cf102867c62c91520daae3 {
-	public static $prefixLengthsPsr4 = array(
-		'E' =>
-		array(
-			'SimpleErrorPages\\' => 9,
-		),
-	);
+class ComposerStaticInit3f161f1866cf102867c62c91520daae3
+{
+    public static $prefixLengthsPsr4 = array (
+        'S' => 
+        array (
+            'SimpleErrorPages\\' => 17,
+        ),
+    );
 
-	public static $prefixDirsPsr4 = array(
-		'SimpleErrorPages\\' =>
-		array(
-			0 => __DIR__ . '/../..' . '/src',
-		),
-	);
+    public static $prefixDirsPsr4 = array (
+        'SimpleErrorPages\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src',
+        ),
+    );
 
-	public static $classMap = array(
-		'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-	);
+    public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+    );
 
-	public static function getInitializer( ClassLoader $loader ) {
-		return \Closure::bind( function () use ($loader) {
-			$loader->prefixLengthsPsr4 = ComposerStaticInit3f161f1866cf102867c62c91520daae3::$prefixLengthsPsr4;
-			$loader->prefixDirsPsr4 = ComposerStaticInit3f161f1866cf102867c62c91520daae3::$prefixDirsPsr4;
-			$loader->classMap = ComposerStaticInit3f161f1866cf102867c62c91520daae3::$classMap;
+    public static function getInitializer(ClassLoader $loader)
+    {
+        return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInit3f161f1866cf102867c62c91520daae3::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit3f161f1866cf102867c62c91520daae3::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit3f161f1866cf102867c62c91520daae3::$classMap;
 
-		}, null, ClassLoader::class);
-	}
+        }, null, ClassLoader::class);
+    }
 }

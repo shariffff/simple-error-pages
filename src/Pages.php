@@ -50,7 +50,7 @@ class Pages {
 		register_post_type( 'simple_error_pages',
 			array(
 				'labels' => array(
-					'name' => __( 'Error Bag', 'simple-error-pages' ),
+					'name' => __( 'Simple Error Pages', 'simple-error-pages' ),
 					'singular_name' => __( 'Error Page', 'simple-error-pages' ),
 					'add_new' => __( 'Add New', 'simple-error-pages' ),
 				),
