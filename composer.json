@@ -1,0 +1,14 @@
+{
+    "name": "sharif/simple-error-pages",
+    "autoload": {
+        "psr-4": {
+            "SimpleErrorPages\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Sharif Mohammad Eunus",
+            "email": "sharif.eunus@gmail.com"
+        }
+    ]
+}

@@ -1,0 +1,7 @@
+{
+    "intelephense.format.enable": false,
+    "intelephense.environment.shortOpenTag": false,
+    "php.workspace.includePath": "/Users/sharif/Projects/testwp",
+    "php.completion.namingConvention": "snake_case"
+
+}
