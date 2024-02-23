@@ -47,7 +47,8 @@ class Activate {
 
 		update_option( 'simple_error_pages_installed', time() );
 		foreach ( $initial_items as $item ) {
-			wp_insert_post( wp_parse_args( $item, $defaults ) );
+			$post_content = wp_parse_args( $item, $defaults );
+			wp_insert_post( $post_content );
 		}
 	}
 
