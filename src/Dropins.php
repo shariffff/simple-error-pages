@@ -33,6 +33,18 @@ class Dropins {
 			}
 		}
 
+		$sth = array(
+			'db-error' => array(
+				'id' => '283',
+			),
+			'php-error' => array(
+				'id' => '0',
+			),
+			'maintenance' => array(
+				'id' => '0',
+			),
+		);
+
 		$title = apply_filters( 'the_title', $post->post_title );
 		$content = apply_filters( 'the_content', $post->post_content );
 		ob_start();

@@ -25,7 +25,7 @@
 	</div>
 </div>
 <div id="simple-error-pages-options-wrapper" class="hidden">
-	<div class="notice notice-large inline">Make sure to update the page once making a change here.</div>
+	<div class="notice notice-large inline">Make sure to update the corresponding page once making a change here.</div>
 	<?php
 	if ( isset( $_GET['settings-updated'] ) ) {
 		add_settings_error( 'simple_error_pages_settings', 'simple_error_pages_settings_message', __( 'Settings Saved', 'simple-error-pages' ), 'updated' );

@@ -20,7 +20,7 @@ class Pages {
 	public static function get( $page ) {
 		$all = self::list();
 		if ( array_key_exists( $page, $all ) ) {
-			return absint( $all[ $page ] );
+			return $all[ $page ];
 		}
 		return null;
 	}
@@ -38,7 +38,8 @@ class Pages {
 		];
 
 		foreach ( $states as $key => $value ) {
-			if ( self::get( $key ) === $post->ID ) {
+			$item = self::get( $key );
+			if ( intval( $item['id'] ) === $post->ID ) {
 				$post_states[ "simple_error_page_for_$key" ] = __( $value, 'simple-error-pages' );
 			}
 		}

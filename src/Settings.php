@@ -46,9 +46,10 @@ class Settings {
 			'php-error' => 'PHP Error',
 			'maintenance' => 'Maintenance',
 		];
-		foreach ( $states as $key => $value ) { ?>
-			<?php $option_name = "simple_error_pages[$key]";
-			$selected = array_key_exists( $key, $setting ) ? $setting[ $key ] : 0;
+		foreach ( $states as $key => $value ) {
+
+			$option_name = "simple_error_pages[$key][id]";
+			$selected = array_key_exists( $key, $setting ) ? $setting[ $key ]['id'] : 0;
 			?>
 			<tr>
 				<th scope="row">
