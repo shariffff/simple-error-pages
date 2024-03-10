@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       Simple Error Pages
- * Plugin URI:        #
+ * Plugin URI:        https://github.com/shariffff/simple-error-pages
  * Description:       Manage Error Pages.
  * Version:           1.0.0
  * Author:            Sharif Mohammad Eunus

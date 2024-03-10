@@ -41,22 +41,20 @@ class Settings {
 			?>
 			<tr>
 				<th scope="row">
-					<label for="<?php echo $option_name ?>">
-						<?php echo $value; ?>
+					<label for="<?php echo esc_attr( $option_name ) ?>">
+						<?php echo esc_html( $value ); ?>
 					</label>
 				</th>
 				<td>
 
 					<?php
-					wp_dropdown_pages(
-						array(
-							'name' => $option_name,
-							'show_option_none' => __( '&mdash; Select &mdash;' ),
-							'option_none_value' => '0',
-							'selected' => $selected,
-							'post_type' => 'simple_error_pages',
-						)
-					);
+					wp_dropdown_pages( [ 
+						'name' => esc_attr( $option_name ),
+						'show_option_none' => esc_html__( '&mdash; Select &mdash;', 'simple-error-pages' ),
+						'option_none_value' => '0',
+						'selected' => esc_attr( $selected ),
+						'post_type' => 'simple_error_pages',
+					] );
 					?>
 
 				</td>

@@ -53,8 +53,19 @@ class Dropins {
 		header( "X-Robots-Tag: noindex" );
 		 ?>';
 		$content .= $html;
-		foreach ( $files as $file ) {
-			file_put_contents( trailingslashit( WP_CONTENT_DIR ) . $file, $content );
+
+		global $wp_filesystem;
+
+		if ( ! function_exists( 'WP_Filesystem' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+		}
+
+		WP_Filesystem();
+
+		if ( ! is_wp_error( $wp_filesystem ) ) {
+			foreach ( $files as $file ) {
+				$wp_filesystem->put_contents( trailingslashit( WP_CONTENT_DIR ) . $file, $content, FS_CHMOD_FILE );
+			}
 		}
 
 	}

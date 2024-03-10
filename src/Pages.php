@@ -32,6 +32,7 @@ class Pages {
 		}
 		return $actions;
 	}
+
 	public function custom_state( $post_states, $post ) {
 
 		if ( 'simple_error_pages' !== get_post_type( $post->ID ) ) {
@@ -46,7 +47,7 @@ class Pages {
 		foreach ( $states as $key => $value ) {
 			$item = self::get( $key );
 			if ( intval( $item['id'] ) === $post->ID ) {
-				$post_states[ "simple_error_page_for_$key" ] = __( $value, 'simple-error-pages' );
+				$post_states[ "simple_error_page_for_$key" ] = $value;
 			}
 		}
 
@@ -94,29 +95,38 @@ class Pages {
 	}
 
 	function preview_link( $column, $post_id ) {
+
+		if ( $column !== 'preview_link' ) {
+			return;
+		}
+
 		$all = Pages::list();
 		$page_name = null;
+		$is_dropin = false;
+
 
 		foreach ( $all as $key => $value ) {
 			if ( isset( $value['id'] ) && intval( $value['id'] ) === $post_id ) {
 				$page_name = $key;
+				$is_dropin = true;
 				break;
 			}
 		}
 
-
-		if ( $page_name ) {
-			$dropin = trailingslashit( WP_CONTENT_URL ) . $page_name . '.php';
+		if ( ! $page_name ) {
+			return;
 		}
 
+		$path = trailingslashit( WP_CONTENT_DIR ) . $page_name . '.php';
+		$url = trailingslashit( WP_CONTENT_URL ) . $page_name . '.php';
 
-		switch ( $column ) {
-			case 'preview_link':
-				if ( $page_name ) {
-					echo '<a target="_blank" href="' . $dropin . '">
-					<svg style="fill: currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M19.5 4.5h-7V6h4.44l-5.97 5.97 1.06 1.06L18 7.06v4.44h1.5v-7Zm-13 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3H17v3a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h3V5.5h-3Z"></path></svg></a>';
-				}
-				break;
+		if ( $is_dropin ) {
+			if ( file_exists( $path ) ) {
+				echo '<a target="_blank" href="' . esc_url( $url ) . '">
+				<svg style="fill: currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M19.5 4.5h-7V6h4.44l-5.97 5.97 1.06 1.06L18 7.06v4.44h1.5v-7Zm-13 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3H17v3a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h3V5.5h-3Z"></path></svg></a>';
+			} else {
+				echo '<span class="button button-small button-disabled">Page Edit/Update required.</span>';
+			}
 		}
 	}
 

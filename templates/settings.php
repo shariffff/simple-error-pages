@@ -25,8 +25,7 @@
 	</div>
 </div>
 <div id="simple-error-pages-options-wrapper" class="hidden">
-	<div class="notice notice-large inline">Make sure to <b>publish</b> the corresponding page once making a change
-		here.
+	<div class="notice notice-large inline">Make sure to <b>update</b> the corresponding page once making a change here.
 	</div>
 	<?php
 	if ( isset( $_GET['settings-updated'] ) ) {
