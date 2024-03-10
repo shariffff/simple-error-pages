@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Plugin Name:       Simple Error Pages
  * Plugin URI:        #
  * Description:       Manage Error Pages.
