@@ -13,7 +13,7 @@ class Dropins {
 
 		$error_pages = Pages::list();
 
-		if ( ! in_array( $post_ID, array_values( $error_pages ) ) ) {
+		if ( ! in_array( $post_ID, array_column( $error_pages, 'id' ) ) ) {
 			return;
 		}
 
@@ -27,24 +27,11 @@ class Dropins {
 
 		$files = [];
 
-		foreach ( $error_pages as $error_type => $error_page_id ) {
-			if ( intval( $error_page_id ) === $post_ID ) {
-				$files[] = "$error_type.php";
+		foreach ( $error_pages as $page => $attr ) {
+			if ( isset( $attr['id'] ) && intval( $attr['id'] ) === $post_ID ) {
+				$files[] = "$page.php";
 			}
 		}
-
-		$sth = array(
-			'db-error' => array(
-				'id' => '283',
-			),
-			'php-error' => array(
-				'id' => '0',
-			),
-			'maintenance' => array(
-				'id' => '0',
-			),
-		);
-
 		$title = apply_filters( 'the_title', $post->post_title );
 		$content = apply_filters( 'the_content', $post->post_content );
 		ob_start();
@@ -63,10 +50,8 @@ class Dropins {
 
 		$html = ob_get_clean();
 		$content = '<?php
-		header( "HTTP/1.1 503 Service Temporarily Unavailable" );
-		header( "Status: 503 Service Temporarily Unavailable" );
+		http_response_code(503);
 		header( "X-Robots-Tag: noindex" );
-		header( "Retry-After: 3600" );
 		 ?>';
 		$content .= $html;
 		foreach ( $files as $file ) {

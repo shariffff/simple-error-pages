@@ -10,7 +10,8 @@ class Pages {
 		add_filter( 'display_post_states', [ $this, 'custom_state' ], 10, 2 );
 		add_filter( 'manage_simple_error_pages_posts_columns', [ $this, 'preview_column' ] );
 		add_action( 'manage_simple_error_pages_posts_custom_column', [ $this, 'preview_link' ], 10, 2 );
-
+		add_filter( 'bulk_actions-edit-simple_error_pages', '__return_false' );
+		add_filter( 'page_row_actions', [ $this, 'remove_inline_edit' ], 10, 2 );
 	}
 
 	public static function list() {
@@ -25,7 +26,12 @@ class Pages {
 		return null;
 	}
 
-
+	public function remove_inline_edit( $actions, $post ) {
+		if ( $post->post_type == 'simple_error_pages' ) {
+			unset( $actions['inline hide-if-no-js'] );
+		}
+		return $actions;
+	}
 	public function custom_state( $post_states, $post ) {
 
 		if ( 'simple_error_pages' !== get_post_type( $post->ID ) ) {
@@ -62,6 +68,7 @@ class Pages {
 				'publicly_queryable' => false,
 				'exclude_from_search' => true,
 				'hierarchical' => true,
+
 			)
 		);
 	}
@@ -80,17 +87,28 @@ class Pages {
 		$columns = array(
 			'cb' => $columns['cb'],
 			'title' => $columns['title'],
-			'preview_link' => __( 'Preview', 'textdomain' ),
+			'preview_link' => __( 'Preview', 'simple-error-pages' ),
 			'date' => $columns['date']
 		);
 		return $columns;
 	}
 
 	function preview_link( $column, $post_id ) {
-		$page_name = array_search( $post_id, Pages::list() );
+		$all = Pages::list();
+		$page_name = null;
+
+		foreach ( $all as $key => $value ) {
+			if ( isset( $value['id'] ) && intval( $value['id'] ) === $post_id ) {
+				$page_name = $key;
+				break;
+			}
+		}
+
+
 		if ( $page_name ) {
 			$dropin = trailingslashit( WP_CONTENT_URL ) . $page_name . '.php';
 		}
+
 
 		switch ( $column ) {
 			case 'preview_link':
