@@ -6,7 +6,6 @@ class Dropins {
 
 	public function register() {
 		add_action( 'save_post_simple_error_pages', [ $this, 'create' ], 10, 2 );
-
 	}
 
 	public function create( $post_ID, $post ) {

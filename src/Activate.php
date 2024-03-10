@@ -11,6 +11,7 @@ class Activate {
 	}
 
 	public function default_error_pages() {
+
 		$installed = get_option( 'simple_error_pages_installed' );
 		if ( $installed ) {
 			return;
@@ -40,7 +41,7 @@ class Activate {
 			$created[] = wp_insert_post( $post_content );
 		}
 
-		update_option( 'simple_error_pages', [ [ 'db-error' => $created[0] ] ] );
+		update_option( 'simple_error_pages', [ [ 'php-error' => [ 'id' => $created[0] ] ] ] );
 		update_option( 'simple_error_pages_installed', time() );
 
 	}

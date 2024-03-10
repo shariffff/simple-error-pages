@@ -8,18 +8,6 @@ class Settings {
 		add_filter( 'in_admin_header', [ $this, 'load_settings_view' ] );
 		add_filter( 'screen_options_show_screen', [ $this, 'disable_for_utility_screen' ] );
 		add_action( 'admin_init', [ $this, 'settings_init' ] );
-
-	}
-	public function post_meta() {
-		register_post_meta(
-			'simple_error_pages',
-			'simple_error_pages_meta_field',
-			array(
-				'show_in_rest' => true,
-				'single' => true,
-				'type' => 'string',
-			)
-		);
 	}
 
 	public static function is_simple_error_pages_screen() {
