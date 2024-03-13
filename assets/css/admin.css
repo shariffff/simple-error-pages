@@ -84,6 +84,8 @@
 	padding: 15px;
 	min-height: 100%;
 	transition: 0.9s;
+	max-width: 350px;
+	border-left: 1px solid #c3c4c7;
 }
 .wp-core-ui #simple-error-pages-options-wrapper select {
 	max-width: 150px;

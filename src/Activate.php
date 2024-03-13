@@ -25,34 +25,24 @@ class Activate {
 		WP_Filesystem();
 
 
-		$template = SIMPLE_ERROR_PAGES_PLUGIN_DIR . '/templates/pattern.html';
+		$template = SIMPLE_ERROR_PAGES_PLUGIN_DIR . '/templates/pattern.txt';
 		$content = '';
+
 		if ( ! is_wp_error( $wp_filesystem ) && $wp_filesystem->exists( $template ) ) {
 			$content = $wp_filesystem->get_contents( $template );
 		}
 
-		$initial_items = [ 
-			'Ops! there is an error.',
-			'Brief Maintenance',
-			'Ops! Technical Error!',
+		$post_content = [ 
+			'post_title' => 'Brief Maintenance',
+			'post_status' => 'publish',
+			'post_type' => 'simple_error_pages',
+			'post_content' => $content
 		];
 
-		$created = [];
+		$created = wp_insert_post( $post_content );
 
-		foreach ( $initial_items as $item ) {
-			$post_content = [ 
-				'post_title' => $item,
-				'post_status' => 'draft',
-				'post_type' => 'simple_error_pages',
-				'post_content' => $content
-			];
-
-			$created[] = wp_insert_post( $post_content );
-		}
-
-		update_option( 'simple_error_pages', [ [ 'php-error' => [ 'id' => $created[0] ] ] ] );
+		update_option( 'simple_error_pages', [ 'php-error' => [ 'id' => $created ] ] );
 		update_option( 'simple_error_pages_installed', time() );
-
 	}
 
 }

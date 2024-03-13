@@ -50,7 +50,7 @@ class Settings {
 					<?php
 					wp_dropdown_pages( [ 
 						'name' => esc_attr( $option_name ),
-						'show_option_none' => esc_html__( '&mdash; Select &mdash;', 'simple-error-pages' ),
+						'show_option_none' => __( '&mdash; Select &mdash;', 'simple-error-pages' ),
 						'option_none_value' => '0',
 						'selected' => esc_attr( $selected ),
 						'post_type' => 'simple_error_pages',
