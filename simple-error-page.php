@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Simple Error Pages
  * Plugin URI:        https://github.com/shariffff/simple-error-pages
- * Description:       Manage Error Pages.
+ * Description:       Craft beautiful error pages directly within the WordPress editor using Simple Error Pages. This plugin leverages WordPress Dropins, enabling you to customize php-error.php for PHP fatal errors, maintenance.php for maintenance screens, and db-error.php for database errors, all from the comfort of your editor. After setting up, you can even remove the plugin if desired.
  * Version:           1.0.0
  * Author:            Sharif Mohammad Eunus
  * Author URI:        https://github.com/shariffff
