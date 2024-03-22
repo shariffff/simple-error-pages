@@ -12,7 +12,7 @@
 
 		<?php
 		global $post_new_file, $post_type_object;
-		if ( isset( $post_new_file ) && current_user_can( 'administrator' ) ) {
+		if ( isset ( $post_new_file ) && current_user_can( 'administrator' ) ) {
 			echo '<a href="' . esc_url( admin_url( $post_new_file ) ) . '" class="page-title-action button-secondary">' . esc_html( $post_type_object->labels->add_new ) . '</a>';
 		}
 		?>
@@ -25,11 +25,9 @@
 	</div>
 </div>
 <div id="simple-error-pages-options-wrapper" class="hidden">
-	<div class="notice notice-large inline">Make sure to <b>update</b> the corresponding page once making a change here.
-	</div>
 	<?php
-	if ( isset( $_GET['settings-updated'] ) ) {
-		add_settings_error( 'simple_error_pages_settings', 'simple_error_pages_settings_message', __( 'Settings Saved', 'simple-error-pages' ), 'updated' );
+	if ( isset ( $_GET['settings-updated'] ) ) {
+		add_settings_error( 'simple_error_pages_settings', 'simple_error_pages_settings_message', __( 'Settings Saved. Should the Error Page appear unstyled, please make edits and update it with some changes. This action will trigger a rebuild of the error page.', 'simple-error-pages' ), 'updated' );
 	}
 
 	settings_errors( 'simple_error_pages_settings' );

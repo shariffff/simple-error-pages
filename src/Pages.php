@@ -46,7 +46,7 @@ class Pages {
 
 		foreach ( $states as $key => $value ) {
 			$item = self::get( $key );
-			if ( isset( $item['id'] ) && ( $item['id'] ) == $post->ID ) {
+			if ( isset ( $item['id'] ) && ( $item['id'] ) == $post->ID ) {
 				$post_states[ "simple_error_page_for_$key" ] = $value;
 			}
 		}
@@ -106,7 +106,7 @@ class Pages {
 
 
 		foreach ( $all as $key => $value ) {
-			if ( isset( $value['id'] ) && ( $value['id'] == $post_id ) ) {
+			if ( isset ( $value['id'] ) && ( $value['id'] == $post_id ) ) {
 				$page_name = $key;
 				$is_dropin = true;
 				break;
@@ -125,7 +125,7 @@ class Pages {
 				echo '<a target="_blank" href="' . esc_url( $url ) . '">
 				<svg style="fill: currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M19.5 4.5h-7V6h4.44l-5.97 5.97 1.06 1.06L18 7.06v4.44h1.5v-7Zm-13 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3H17v3a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h3V5.5h-3Z"></path></svg></a>';
 			} else {
-				echo '<span class="button button-small button-disabled">Page Edit/Update required.</span>';
+				echo '<span class="button button-small button-disabled">Page Edit/Update is required to create the error page.</span>';
 			}
 		}
 	}

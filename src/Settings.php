@@ -8,6 +8,18 @@ class Settings {
 		add_filter( 'in_admin_header', [ $this, 'load_settings_view' ] );
 		add_filter( 'screen_options_show_screen', [ $this, 'disable_for_utility_screen' ] );
 		add_action( 'admin_init', [ $this, 'settings_init' ] );
+		add_action( 'update_option_simple_error_pages', [ $this, 'create_dropin' ], 10, 2 );
+	}
+
+	public function create_dropin( $old, $new ) {
+		$rebuild = array_filter( array_column( $new, 'id' ) );
+		if ( ! $rebuild ) {
+			return;
+		}
+		foreach ( $rebuild as $page ) {
+			( new Dropins )->create( $page, get_post( $page ) );
+		}
+
 	}
 
 	public static function is_simple_error_pages_screen() {

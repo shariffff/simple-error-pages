@@ -27,12 +27,14 @@ class Dropins {
 		$files = [];
 
 		foreach ( $error_pages as $page => $attr ) {
-			if ( isset( $attr['id'] ) && intval( $attr['id'] ) === $post_ID ) {
+			if ( isset ( $attr['id'] ) && $attr['id'] == $post_ID ) {
 				$files[] = "$page.php";
 			}
 		}
+
 		$title = apply_filters( 'the_title', $post->post_title );
-		$content = apply_filters( 'the_content', $post->post_content );
+		$content = do_blocks( $post->post_content );
+
 		ob_start();
 		echo '<!DOCTYPE html>
 				<html xmlns="http://www.w3.org/1999/xhtml">
@@ -40,6 +42,14 @@ class Dropins {
 					<meta name="robots" content="noindex">
 					<title>' . $title . '</title>
 				';
+		remove_filter( 'wp_robots', 'wp_robots_max_image_preview_large' );
+		remove_action( 'wp_footer', 'wp_admin_bar_render', 1000 );
+		wp_enqueue_style( 'wp-block-library' );
+		wp_dequeue_style( 'dashicons' );
+		wp_deregister_style( 'dashicons' );
+		wp_dequeue_script( 'common' );
+		wp_dequeue_script( 'admin-bar' );
+		remove_action( 'wp_head', 'wp_enqueue_admin_bar_bump_styles' );
 		wp_head();
 		echo '</head><body>';
 		echo $content;
