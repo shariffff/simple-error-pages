@@ -34,7 +34,7 @@ class Activate {
 
 		$post_content = [ 
 			'post_title' => 'Brief Maintenance',
-			'post_status' => 'publish',
+			'post_status' => 'draft',
 			'post_type' => 'simple_error_pages',
 			'post_content' => $content
 		];

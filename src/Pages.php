@@ -116,7 +116,7 @@ class Pages {
 		if ( ! $page_name ) {
 			return;
 		}
-
+		$post_status = get_post_status( $post_id );
 		$path = trailingslashit( WP_CONTENT_DIR ) . $page_name . '.php';
 		$url = trailingslashit( WP_CONTENT_URL ) . $page_name . '.php';
 
@@ -124,6 +124,8 @@ class Pages {
 			if ( file_exists( $path ) ) {
 				echo '<a target="_blank" href="' . esc_url( $url ) . '">
 				<svg style="fill: currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M19.5 4.5h-7V6h4.44l-5.97 5.97 1.06 1.06L18 7.06v4.44h1.5v-7Zm-13 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3H17v3a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h3V5.5h-3Z"></path></svg></a>';
+			} elseif ( 'publish' != $post_status ) {
+				echo '<span class="button button-small button-disabled">Edit the Page and Publish it.</span>';
 			} else {
 				echo '<span class="button button-small button-disabled">Page Edit/Update is required to create the error page.</span>';
 			}
