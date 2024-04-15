@@ -2,7 +2,7 @@
     "name": "sharif/simple-error-pages",
     "autoload": {
         "psr-4": {
-            "SimpleErrorPages\\": "src/"
+            "SEPages\\": "src/"
         }
     },
     "authors": [

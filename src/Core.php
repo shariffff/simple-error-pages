@@ -1,5 +1,6 @@
 <?php
-namespace SimpleErrorPages;
+
+namespace SEPages;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

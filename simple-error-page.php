@@ -25,8 +25,8 @@ define( 'SIMPLE_ERROR_PAGES_PLUGIN_FILE', __FILE__ );
 define( 'SIMPLE_ERROR_PAGES_PLUGIN_DIR', __DIR__ );
 define( 'SIMPLE_ERROR_PAGES_PLUGIN_BASE', plugin_basename( __FILE__ ) );
 
-register_activation_hook( __FILE__, fn() => SimpleErrorPages\Activate::activate() );
-register_deactivation_hook( __FILE__, fn() => SimpleErrorPages\Deactivate::deactivate() );
+register_activation_hook( __FILE__, fn() => SEPages\Activate::activate() );
+register_deactivation_hook( __FILE__, fn() => SEPages\Deactivate::deactivate() );
 
 add_filter( 'plugin_action_links_' . SIMPLE_ERROR_PAGES_PLUGIN_BASE, function ($links) {
 	return array_merge(
@@ -36,5 +36,5 @@ add_filter( 'plugin_action_links_' . SIMPLE_ERROR_PAGES_PLUGIN_BASE, function ($
 } );
 
 if ( class_exists( 'SimpleErrorPages\\Core' ) ) {
-	SimpleErrorPages\Core::init();
+	SEPages\Core::init();
 }
