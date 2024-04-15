@@ -2,6 +2,10 @@
 
 namespace SimpleErrorPages;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class Dropins {
 
 	public function register() {
@@ -27,7 +31,7 @@ class Dropins {
 		$files = [];
 
 		foreach ( $error_pages as $page => $attr ) {
-			if ( isset ( $attr['id'] ) && $attr['id'] == $post_ID ) {
+			if ( isset( $attr['id'] ) && $attr['id'] == $post_ID ) {
 				$files[] = "$page.php";
 			}
 		}
@@ -40,7 +44,7 @@ class Dropins {
 				<html xmlns="http://www.w3.org/1999/xhtml">
 				<head>
 					<meta name="robots" content="noindex">
-					<title>' . $title . '</title>
+					<title>' . esc_html( $title ) . '</title>
 				';
 		remove_filter( 'wp_robots', 'wp_robots_max_image_preview_large' );
 		remove_action( 'wp_footer', 'wp_admin_bar_render', 1000 );
@@ -52,7 +56,7 @@ class Dropins {
 		remove_action( 'wp_head', 'wp_enqueue_admin_bar_bump_styles' );
 		wp_head();
 		echo '</head><body>';
-		echo $content;
+		echo wp_kses_post( $content );
 		wp_footer();
 		echo '</body></html>';
 

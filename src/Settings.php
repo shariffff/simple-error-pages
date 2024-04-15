@@ -2,6 +2,10 @@
 
 namespace SimpleErrorPages;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class Settings {
 
 	public function register() {

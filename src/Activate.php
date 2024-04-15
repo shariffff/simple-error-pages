@@ -2,6 +2,10 @@
 
 namespace SimpleErrorPages;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class Activate {
 
 	public static function activate() {

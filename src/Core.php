@@ -1,6 +1,10 @@
 <?php
 namespace SimpleErrorPages;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 final class Core {
 	public static function getServices() {
 		return [ 
