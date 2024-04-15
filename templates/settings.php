@@ -16,9 +16,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</h1>
 
 		<?php
-		global $post_new_file, $post_type_object;
-		if ( isset( $post_new_file ) && current_user_can( 'administrator' ) ) {
-			echo '<a href="' . esc_url( admin_url( $post_new_file ) ) . '" class="page-title-action button-secondary">' . esc_html( $post_type_object->labels->add_new ) . '</a>';
+
+		if ( current_user_can( 'administrator' ) ) {
+			echo '<a href="' . esc_url( admin_url( '' ) ) . '" class="page-title-action button-secondary">' . esc_html__( 'Add New', 'simple-error-pages' ) . '</a>';
 		}
 		?>
 
