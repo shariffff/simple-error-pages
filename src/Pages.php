@@ -67,7 +67,7 @@ class Pages {
 					'add_new' => __( 'Add New', 'simple-error-pages' ),
 				),
 				'public' => true,
-				'has_archive' => true,
+				'has_archive' => false,
 				'show_in_rest' => true,
 				'show_in_menu' => 'tools.php',
 				'publicly_queryable' => false,

@@ -35,6 +35,6 @@ add_filter( 'plugin_action_links_' . SIMPLE_ERROR_PAGES_PLUGIN_BASE, function ($
 	);
 } );
 
-if ( class_exists( 'SimpleErrorPages\\Core' ) ) {
+if ( class_exists( 'SEPages\\Core' ) ) {
 	SEPages\Core::init();
 }
