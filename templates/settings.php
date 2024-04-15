@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php
 
 		if ( current_user_can( 'administrator' ) ) {
-			echo '<a href="' . esc_url( admin_url( '' ) ) . '" class="page-title-action button-secondary">' . esc_html__( 'Add New', 'simple-error-pages' ) . '</a>';
+			echo '<a href="' . esc_url( admin_url( 'post-new.php?post_type=simple_error_pages' ) ) . '" class="page-title-action button-secondary">' . esc_html__( 'Add New', 'simple-error-pages' ) . '</a>';
 		}
 		?>
 
