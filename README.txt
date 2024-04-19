@@ -1,4 +1,4 @@
-=== Simple Error Pages ===
+=== Simple Error Pages - Personalize PHP, Database, and Maintenance error pages ===
 Contributors: smeunus
 Donate link: https://github.com/shariffff
 Tags: utility
@@ -42,8 +42,8 @@ Once you set the error state(PHP Error, Maintenance or Database error), update t
 Preview link is for the pages where  error state(PHP Error, Maintenance or Database error) is set. If that's still missing, update the page one more time by slightly editing it.
 
 == Screenshots ==
-1. Screenshot of the Plugin Settings Page
-2. Screenshot of the created error page
+1. Screenshot of the custom error page
+2. Screenshot of the Plugin Settings
 == Upgrade Notice ==
 
 == Changelog ==

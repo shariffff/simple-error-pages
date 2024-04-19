@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       Simple Error Pages - Personalize PHP, Database, and Maintenance error pages
+ * Plugin Name:       Simple Error Pages
  * Plugin URI:        https://github.com/shariffff/simple-error-pages
  * Description:       This plugin uses WordPress Dropins to let you easily customize error pages for PHP, maintenance, and database issues directly from your editor.
  * Version:           1.0.0
