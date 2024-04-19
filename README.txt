@@ -1,4 +1,4 @@
-=== Simple Error Pages - Personalize PHP, Database, and Maintenance error pages ===
+=== Simple Error Pages - Personalize PHP, Database, and Maintenance Error Pages ===
 Contributors: smeunus
 Donate link: https://github.com/shariffff
 Tags: utility
