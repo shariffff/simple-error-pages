@@ -9,10 +9,10 @@ Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Craft beautiful error pages directly within the WordPress editor using Simple Error Pages. This plugin leverages WordPress Dropins.
+Personalize PHP, Database, and Maintenance error pages using the Editor. This plugin leverages WordPress Dropins php-error.php maintenance.php and db-error.php.
 
 == Description ==
-Craft beautiful error pages directly within the WordPress editor using Simple Error Pages. This plugin leverages WordPress Dropins, enabling you to customize php-error.php for PHP fatal errors, maintenance.php for maintenance screens, and db-error.php for database errors, all from the comfort of your editor. After setting up, you can even remove the plugin if desired.
+Personalize PHP, Database, and Maintenance error pages using the Editor. This plugin leverages WordPress Dropins, enabling you to customize php-error.php for PHP fatal errors, maintenance.php for maintenance screens, and db-error.php for database errors, all from the comfort of your editor. After setting up, you can even remove the plugin if desired.
 
 == Installation ==
 
