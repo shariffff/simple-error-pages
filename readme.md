@@ -5,4 +5,4 @@ Standard error pages are plain, but WordPress lets you customize them. This plug
 > [!TIP]
 > And the best part, Once you've set up your custom error pages, you may simply _delete_ the plugin.
 
-![Screenshot of error pages comparing with default](/assets/screenshot-4.png)
+![Screenshot of error pages comparing with default](/.wordpress-org/screenshot-1.png)
