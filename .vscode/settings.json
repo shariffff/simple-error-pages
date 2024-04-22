@@ -2,5 +2,8 @@
     "intelephense.environment.shortOpenTag": false,
     "php.workspace.includePath": "/Users/sharif/Projects/testwp",
     "php.completion.namingConvention": "snake_case",
-    "phpcs.standard": "WordPress"
+    "phpcs.standard": "WordPress",
+    "phpcs.ignorePatterns": [
+        "*/vendor/*"
+    ]
 }

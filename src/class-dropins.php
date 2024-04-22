@@ -28,8 +28,8 @@ class Dropins {
 	/**
 	 * Summary of create
 	 *
-	 * @param mixed $post_ID
-	 * @param mixed $post
+	 * @param mixed $post_ID ID of the WordPress Post.
+	 * @param mixed $post Post Content.
 	 *
 	 * @return void
 	 */

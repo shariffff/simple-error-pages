@@ -1,1 +1,6 @@
-<?php // Silence is golden
+<?php
+/**
+ * Silence is golden.
+ *
+ * @package simple_error_pages
+ */

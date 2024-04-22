@@ -31,13 +31,13 @@ class Settings {
 	/**
 	 * Summary of create_dropin
 	 *
-	 * @param mixed $old
-	 * @param mixed $new
+	 * @param mixed $old Old settings value.
+	 * @param mixed $new_value Current settings value.
 	 *
 	 * @return void
 	 */
-	public function create_dropin( $old, $new ) {
-		$rebuild = array_filter( array_column( $new, 'id' ) );
+	public function create_dropin( $old, $new_value ) {
+		$rebuild = array_filter( array_column( $new_value, 'id' ) );
 		if ( ! $rebuild ) {
 			return;
 		}

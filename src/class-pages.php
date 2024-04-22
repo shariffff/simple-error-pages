@@ -43,7 +43,7 @@ class Pages {
 	/**
 	 * Summary of get
 	 *
-	 * @param mixed $page
+	 * @param mixed $page Get page id.
 	 *
 	 * @return mixed
 	 */
@@ -58,8 +58,8 @@ class Pages {
 	/**
 	 * Summary of remove_inline_edit
 	 *
-	 * @param mixed $actions
-	 * @param mixed $post
+	 * @param mixed $actions List of actions.
+	 * @param mixed $post Post instance.
 	 *
 	 * @return mixed
 	 */
@@ -73,8 +73,8 @@ class Pages {
 	/**
 	 * Summary of custom_state
 	 *
-	 * @param mixed $post_states
-	 * @param mixed $post
+	 * @param mixed $post_states Current states.
+	 * @param mixed $post Post instance.
 	 *
 	 * @return mixed
 	 */
@@ -142,7 +142,7 @@ class Pages {
 	/**
 	 * Summary of preview_column
 	 *
-	 * @param mixed $columns
+	 * @param mixed $columns Post Columns.
 	 *
 	 * @return array
 	 */
@@ -159,8 +159,8 @@ class Pages {
 	/**
 	 * Summary of preview_link
 	 *
-	 * @param mixed $column
-	 * @param mixed $post_id
+	 * @param mixed $column Name of the column.
+	 * @param mixed $post_id Post ID.
 	 *
 	 * @return void
 	 */
