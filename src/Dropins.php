@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Dropins {
 
 	public function register() {
-		add_action( 'save_post_simple_error_pages', [ $this, 'create' ], 10, 2 );
+		add_action( 'save_post_simple_error_pages', array( $this, 'create' ), 10, 2 );
 	}
 
 	public function create( $post_ID, $post ) {
@@ -28,7 +28,7 @@ class Dropins {
 			return;
 		}
 
-		$files = [];
+		$files = array();
 
 		foreach ( $error_pages as $page => $attr ) {
 			if ( isset( $attr['id'] ) && $attr['id'] == $post_ID ) {
@@ -36,7 +36,7 @@ class Dropins {
 			}
 		}
 
-		$title = apply_filters( 'the_title', $post->post_title );
+		$title   = apply_filters( 'the_title', $post->post_title );
 		$content = do_blocks( $post->post_content );
 
 		ob_start();
@@ -60,9 +60,8 @@ class Dropins {
 		wp_footer();
 		echo '</body></html>';
 
-
-		$html = ob_get_clean();
-		$content = '<?php
+		$html     = ob_get_clean();
+		$content  = '<?php
 		http_response_code(503);
 		header( "X-Robots-Tag: noindex" );
 		 ?>';
@@ -81,7 +80,5 @@ class Dropins {
 				$wp_filesystem->put_contents( trailingslashit( WP_CONTENT_DIR ) . $file, $content, FS_CHMOD_FILE );
 			}
 		}
-
 	}
-
 }

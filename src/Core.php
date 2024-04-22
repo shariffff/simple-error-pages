@@ -8,16 +8,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 final class Core {
 	public static function getServices() {
-		return [ 
+		return array(
 			Pages::class,
 			Settings::class,
-			Dropins::class
-		];
+			Dropins::class,
+		);
 	}
 
 	/**
 	 * Loop through the classes, initialize them,
 	 * and call the register() method if it exists
+	 *
 	 * @return
 	 */
 	public static function init() {
@@ -33,5 +34,4 @@ final class Core {
 		$service = new $class();
 		return $service;
 	}
-
 }

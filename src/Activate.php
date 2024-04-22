@@ -28,25 +28,23 @@ class Activate {
 
 		WP_Filesystem();
 
-
 		$template = SIMPLE_ERROR_PAGES_PLUGIN_DIR . '/templates/pattern.txt';
-		$content = '';
+		$content  = '';
 
 		if ( ! is_wp_error( $wp_filesystem ) && $wp_filesystem->exists( $template ) ) {
 			$content = $wp_filesystem->get_contents( $template );
 		}
 
-		$post_content = [ 
-			'post_title' => 'Brief Maintenance',
-			'post_status' => 'draft',
-			'post_type' => 'simple_error_pages',
-			'post_content' => $content
-		];
+		$post_content = array(
+			'post_title'   => 'Brief Maintenance',
+			'post_status'  => 'draft',
+			'post_type'    => 'simple_error_pages',
+			'post_content' => $content,
+		);
 
 		$created = wp_insert_post( $post_content );
 
-		update_option( 'simple_error_pages', [ 'php-error' => [ 'id' => $created ] ] );
+		update_option( 'simple_error_pages', array( 'php-error' => array( 'id' => $created ) ) );
 		update_option( 'simple_error_pages_installed', time() );
 	}
-
 }
