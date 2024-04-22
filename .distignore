@@ -3,3 +3,6 @@
 /.github
 /.vscode
 /readme.md
+/composer.json
+/composer.lock
+/vendor

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Handle Activation
+ *
+ * @package simple_error_pages
+ */
 
 namespace SEPages;
 
@@ -6,14 +11,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Summary of Activate
+ */
 class Activate {
 
+	/**
+	 * Summary of activate
+	 *
+	 * @return void
+	 */
 	public static function activate() {
 		flush_rewrite_rules();
 		$_this = new self();
 		$_this->default_error_pages();
 	}
 
+	/**
+	 * Summary of default_error_pages
+	 *
+	 * @return void
+	 */
 	public function default_error_pages() {
 		global $wp_filesystem;
 

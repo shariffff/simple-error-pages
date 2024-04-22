@@ -1,4 +1,9 @@
 <?php
+/**
+ * Handle settings
+ *
+ * @package simple_error_pages
+ */
 
 namespace SEPages;
 
@@ -6,8 +11,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Summary of Settings
+ */
 class Settings {
 
+	/**
+	 * Summary of register
+	 *
+	 * @return void
+	 */
 	public function register() {
 		add_filter( 'in_admin_header', array( $this, 'load_settings_view' ) );
 		add_filter( 'screen_options_show_screen', array( $this, 'disable_for_utility_screen' ) );
@@ -15,6 +28,14 @@ class Settings {
 		add_action( 'update_option_simple_error_pages', array( $this, 'create_dropin' ), 10, 2 );
 	}
 
+	/**
+	 * Summary of create_dropin
+	 *
+	 * @param mixed $old
+	 * @param mixed $new
+	 *
+	 * @return void
+	 */
 	public function create_dropin( $old, $new ) {
 		$rebuild = array_filter( array_column( $new, 'id' ) );
 		if ( ! $rebuild ) {
@@ -25,6 +46,11 @@ class Settings {
 		}
 	}
 
+	/**
+	 * Summary of is_simple_error_pages_screen
+	 *
+	 * @return bool
+	 */
 	public static function is_simple_error_pages_screen() {
 		if ( function_exists( 'get_current_screen' ) ) {
 			$screen = get_current_screen();
@@ -33,14 +59,29 @@ class Settings {
 		return false;
 	}
 
+	/**
+	 * Summary of disable_for_utility_screen
+	 *
+	 * @return bool
+	 */
 	public function disable_for_utility_screen(): bool {
 		return ! self::is_simple_error_pages_screen();
 	}
+	/**
+	 * Summary of settings_init
+	 *
+	 * @return void
+	 */
 	public function settings_init() {
 		register_setting( 'simple_error_pages_settings', 'simple_error_pages' );
 		add_settings_section( 'simple_error_pages_settings_section', '', '__return_null', 'simple_error_pages_settings' );
 		add_settings_field( 'simple_error_pages_settings_field', '', array( $this, 'render_field' ), 'simple_error_pages_settings', 'simple_error_pages_settings_section' );
 	}
+	/**
+	 * Summary of render_field
+	 *
+	 * @return void
+	 */
 	public function render_field() {
 		$setting = Pages::list();
 		$states  = array(
@@ -78,6 +119,11 @@ class Settings {
 			<?php
 		}
 	}
+	/**
+	 * Summary of load_settings_view
+	 *
+	 * @return void
+	 */
 	public function load_settings_view() {
 		if ( self::is_simple_error_pages_screen() ) {
 			require_once plugin_dir_path( SIMPLE_ERROR_PAGES_PLUGIN_FILE ) . '/templates/settings.php';

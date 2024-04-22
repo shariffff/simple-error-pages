@@ -1,4 +1,10 @@
 <?php
+/**
+ * Settings UI
+ *
+ * @package simple_error_pages
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }

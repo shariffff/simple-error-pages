@@ -1,10 +1,5 @@
 {
     "name": "sharif/simple-error-pages",
-    "autoload": {
-        "psr-4": {
-            "SEPages\\": "src/"
-        }
-    },
     "authors": [
         {
             "name": "Sharif Mohammad Eunus",

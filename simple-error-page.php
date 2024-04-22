@@ -10,6 +10,8 @@
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       simple-error-pages
  * Domain Path:       /languages
+ *
+ * @package           simple_error_pages
  */
 
 if ( ! defined( 'WPINC' ) ) {
@@ -22,22 +24,51 @@ define( 'SIMPLE_ERROR_PAGES_PLUGIN_FILE', __FILE__ );
 define( 'SIMPLE_ERROR_PAGES_PLUGIN_DIR', __DIR__ );
 define( 'SIMPLE_ERROR_PAGES_PLUGIN_BASE', plugin_basename( __FILE__ ) );
 
-require_once SIMPLE_ERROR_PAGES_PLUGIN_DIR . '/vendor/autoload.php';
 
-register_activation_hook( __FILE__, fn() => SEPages\Activate::activate() );
-register_deactivation_hook( __FILE__, fn() => SEPages\Deactivate::deactivate() );
-
-add_filter( 'plugin_action_links_' . SIMPLE_ERROR_PAGES_PLUGIN_BASE, 'simple_error_pages_action_link' );
+require_once SIMPLE_ERROR_PAGES_PLUGIN_DIR . '/src/class-activate.php';
+require_once SIMPLE_ERROR_PAGES_PLUGIN_DIR . '/src/class-deactivate.php';
+require_once SIMPLE_ERROR_PAGES_PLUGIN_DIR . '/src/class-dropins.php';
+require_once SIMPLE_ERROR_PAGES_PLUGIN_DIR . '/src/class-pages.php';
+require_once SIMPLE_ERROR_PAGES_PLUGIN_DIR . '/src/class-settings.php';
+require_once SIMPLE_ERROR_PAGES_PLUGIN_DIR . '/src/class-core.php';
 
 /**
- * Sets plugins action link
+ * Summary of simple_error_pages_activate
  *
- * @param [array] $links
- * @return array
+ * @return void
+ */
+function simple_error_pages_activate() {
+	SEPages\Activate::activate();
+}
+
+/**
+ * Summary of simple_error_pages_deactivate
+ *
+ * @return void
+ */
+function simple_error_pages_deactivate() {
+	SEPages\Deactivate::deactivate();
+}
+
+register_activation_hook( __FILE__, 'simple_error_pages_activate' );
+register_deactivation_hook( __FILE__, 'simple_error_pages_deactivate' );
+
+
+add_filter(
+	'plugin_action_links_' . SIMPLE_ERROR_PAGES_PLUGIN_BASE,
+	'simple_error_pages_plugin_action_link'
+);
+
+/**
+ * Sets plugin action link
+ *
+ * @param array $links An array of existing action links for the plugin.
+ * @return array Modified array of action links, with the custom link added.
  */
 function simple_error_pages_plugin_action_link( $links ) {
+	$url = 'edit.php?post_type=simple_error_pages';
 	return array_merge(
-		array( '<a href="' . admin_url( 'edit.php?post_type=simple_error_pages' ) . '">Pages</a>' ),
+		array( '<a href="' . admin_url( $url ) . '">Pages</a>' ),
 		$links
 	);
 }

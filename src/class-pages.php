@@ -1,4 +1,9 @@
 <?php
+/**
+ * CPT and Related settings
+ *
+ * @package simple_error_pages
+ */
 
 namespace SEPages;
 
@@ -6,8 +11,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Summary of Pages
+ */
 class Pages {
 
+	/**
+	 * Summary of register
+	 *
+	 * @return void
+	 */
 	public function register() {
 		add_action( 'init', array( $this, 'simple_error_pages_cpt' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_styles' ) );
@@ -18,10 +31,22 @@ class Pages {
 		add_filter( 'page_row_actions', array( $this, 'remove_inline_edit' ), 10, 2 );
 	}
 
+	/**
+	 * Summary of list
+	 *
+	 * @return mixed
+	 */
 	public static function list() {
 		return get_option( 'simple_error_pages', array() );
 	}
 
+	/**
+	 * Summary of get
+	 *
+	 * @param mixed $page
+	 *
+	 * @return mixed
+	 */
 	public static function get( $page ) {
 		$all = self::list();
 		if ( array_key_exists( $page, $all ) ) {
@@ -30,13 +55,29 @@ class Pages {
 		return null;
 	}
 
+	/**
+	 * Summary of remove_inline_edit
+	 *
+	 * @param mixed $actions
+	 * @param mixed $post
+	 *
+	 * @return mixed
+	 */
 	public function remove_inline_edit( $actions, $post ) {
-		if ( $post->post_type == 'simple_error_pages' ) {
+		if ( 'simple_error_pages' === $post->post_type ) {
 			unset( $actions['inline hide-if-no-js'] );
 		}
 		return $actions;
 	}
 
+	/**
+	 * Summary of custom_state
+	 *
+	 * @param mixed $post_states
+	 * @param mixed $post
+	 *
+	 * @return mixed
+	 */
 	public function custom_state( $post_states, $post ) {
 
 		if ( 'simple_error_pages' !== get_post_type( $post->ID ) ) {
@@ -58,6 +99,11 @@ class Pages {
 		return $post_states;
 	}
 
+	/**
+	 * Summary of simple_error_pages_cpt
+	 *
+	 * @return void
+	 */
 	public function simple_error_pages_cpt() {
 		register_post_type(
 			'simple_error_pages',
@@ -79,6 +125,11 @@ class Pages {
 		);
 	}
 
+	/**
+	 * Summary of admin_styles
+	 *
+	 * @return void
+	 */
 	public function admin_styles() {
 
 		$screen = get_current_screen();
@@ -88,7 +139,14 @@ class Pages {
 		wp_enqueue_style( 'simple-error-pages', plugins_url( 'assets/css/admin.css', SIMPLE_ERROR_PAGES_PLUGIN_FILE ), array(), 1, 'all' );
 	}
 
-	function preview_column( $columns ) {
+	/**
+	 * Summary of preview_column
+	 *
+	 * @param mixed $columns
+	 *
+	 * @return array
+	 */
+	public function preview_column( $columns ) {
 		$columns = array(
 			'cb'           => $columns['cb'],
 			'title'        => $columns['title'],
@@ -98,9 +156,17 @@ class Pages {
 		return $columns;
 	}
 
-	function preview_link( $column, $post_id ) {
+	/**
+	 * Summary of preview_link
+	 *
+	 * @param mixed $column
+	 * @param mixed $post_id
+	 *
+	 * @return void
+	 */
+	public function preview_link( $column, $post_id ) {
 
-		if ( $column !== 'preview_link' ) {
+		if ( 'preview_link' !== $column ) {
 			return;
 		}
 

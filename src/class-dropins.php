@@ -1,4 +1,9 @@
 <?php
+/**
+ * Creates the dropins
+ *
+ * @package simple_error_pages
+ */
 
 namespace SEPages;
 
@@ -6,12 +11,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Summary of Dropins
+ */
 class Dropins {
 
+	/**
+	 * Summary of register
+	 *
+	 * @return void
+	 */
 	public function register() {
 		add_action( 'save_post_simple_error_pages', array( $this, 'create' ), 10, 2 );
 	}
 
+	/**
+	 * Summary of create
+	 *
+	 * @param mixed $post_ID
+	 * @param mixed $post
+	 *
+	 * @return void
+	 */
 	public function create( $post_ID, $post ) {
 
 		$error_pages = Pages::list();
@@ -24,7 +45,7 @@ class Dropins {
 			return;
 		}
 
-		if ( $post->post_status != 'publish' ) {
+		if ( 'publish' !== $post->post_status ) {
 			return;
 		}
 
@@ -36,8 +57,8 @@ class Dropins {
 			}
 		}
 
-		$title   = apply_filters( 'the_title', $post->post_title );
 		$content = do_blocks( $post->post_content );
+		$title   = apply_filters( 'the_title', $post->post_title );
 
 		ob_start();
 		echo '<!DOCTYPE html>
