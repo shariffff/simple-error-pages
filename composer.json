@@ -1,14 +1,17 @@
 {
     "name": "sharif/simple-error-pages",
-    "autoload": {
-        "psr-4": {
-            "SEPages\\": "src/"
-        }
-    },
     "authors": [
         {
             "name": "Sharif Mohammad Eunus",
             "email": "sharif.eunus@gmail.com"
         }
-    ]
+    ],
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "require-dev": {
+        "wp-coding-standards/wpcs": "^3.0"
+    }
 }

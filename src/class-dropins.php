@@ -1,4 +1,9 @@
 <?php
+/**
+ * Creates the dropins
+ *
+ * @package simple_error_pages
+ */
 
 namespace SEPages;
 
@@ -6,12 +11,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Summary of Dropins
+ */
 class Dropins {
 
+	/**
+	 * Summary of register
+	 *
+	 * @return void
+	 */
 	public function register() {
-		add_action( 'save_post_simple_error_pages', [ $this, 'create' ], 10, 2 );
+		add_action( 'save_post_simple_error_pages', array( $this, 'create' ), 10, 2 );
 	}
 
+	/**
+	 * Summary of create
+	 *
+	 * @param mixed $post_ID ID of the WordPress Post.
+	 * @param mixed $post Post Content.
+	 *
+	 * @return void
+	 */
 	public function create( $post_ID, $post ) {
 
 		$error_pages = Pages::list();
@@ -24,11 +45,11 @@ class Dropins {
 			return;
 		}
 
-		if ( $post->post_status != 'publish' ) {
+		if ( 'publish' !== $post->post_status ) {
 			return;
 		}
 
-		$files = [];
+		$files = array();
 
 		foreach ( $error_pages as $page => $attr ) {
 			if ( isset( $attr['id'] ) && $attr['id'] == $post_ID ) {
@@ -36,8 +57,8 @@ class Dropins {
 			}
 		}
 
-		$title = apply_filters( 'the_title', $post->post_title );
 		$content = do_blocks( $post->post_content );
+		$title   = apply_filters( 'the_title', $post->post_title );
 
 		ob_start();
 		echo '<!DOCTYPE html>
@@ -60,9 +81,8 @@ class Dropins {
 		wp_footer();
 		echo '</body></html>';
 
-
-		$html = ob_get_clean();
-		$content = '<?php
+		$html     = ob_get_clean();
+		$content  = '<?php
 		http_response_code(503);
 		header( "X-Robots-Tag: noindex" );
 		 ?>';
@@ -81,7 +101,5 @@ class Dropins {
 				$wp_filesystem->put_contents( trailingslashit( WP_CONTENT_DIR ) . $file, $content, FS_CHMOD_FILE );
 			}
 		}
-
 	}
-
 }

@@ -1,4 +1,9 @@
 <?php
+/**
+ * CPT and Related settings
+ *
+ * @package simple_error_pages
+ */
 
 namespace SEPages;
 
@@ -6,22 +11,42 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Summary of Pages
+ */
 class Pages {
 
+	/**
+	 * Summary of register
+	 *
+	 * @return void
+	 */
 	public function register() {
-		add_action( 'init', [ $this, 'simple_error_pages_cpt' ] );
-		add_action( 'admin_enqueue_scripts', [ $this, 'admin_styles' ] );
-		add_filter( 'display_post_states', [ $this, 'custom_state' ], 10, 2 );
-		add_filter( 'manage_simple_error_pages_posts_columns', [ $this, 'preview_column' ] );
-		add_action( 'manage_simple_error_pages_posts_custom_column', [ $this, 'preview_link' ], 10, 2 );
+		add_action( 'init', array( $this, 'simple_error_pages_cpt' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_styles' ) );
+		add_filter( 'display_post_states', array( $this, 'custom_state' ), 10, 2 );
+		add_filter( 'manage_simple_error_pages_posts_columns', array( $this, 'preview_column' ) );
+		add_action( 'manage_simple_error_pages_posts_custom_column', array( $this, 'preview_link' ), 10, 2 );
 		add_filter( 'bulk_actions-edit-simple_error_pages', '__return_false' );
-		add_filter( 'page_row_actions', [ $this, 'remove_inline_edit' ], 10, 2 );
+		add_filter( 'page_row_actions', array( $this, 'remove_inline_edit' ), 10, 2 );
 	}
 
+	/**
+	 * Summary of list
+	 *
+	 * @return mixed
+	 */
 	public static function list() {
-		return get_option( 'simple_error_pages', [] );
+		return get_option( 'simple_error_pages', array() );
 	}
 
+	/**
+	 * Summary of get
+	 *
+	 * @param mixed $page Get page id.
+	 *
+	 * @return mixed
+	 */
 	public static function get( $page ) {
 		$all = self::list();
 		if ( array_key_exists( $page, $all ) ) {
@@ -30,23 +55,39 @@ class Pages {
 		return null;
 	}
 
+	/**
+	 * Summary of remove_inline_edit
+	 *
+	 * @param mixed $actions List of actions.
+	 * @param mixed $post Post instance.
+	 *
+	 * @return mixed
+	 */
 	public function remove_inline_edit( $actions, $post ) {
-		if ( $post->post_type == 'simple_error_pages' ) {
+		if ( 'simple_error_pages' === $post->post_type ) {
 			unset( $actions['inline hide-if-no-js'] );
 		}
 		return $actions;
 	}
 
+	/**
+	 * Summary of custom_state
+	 *
+	 * @param mixed $post_states Current states.
+	 * @param mixed $post Post instance.
+	 *
+	 * @return mixed
+	 */
 	public function custom_state( $post_states, $post ) {
 
 		if ( 'simple_error_pages' !== get_post_type( $post->ID ) ) {
 			return;
 		}
-		$states = [ 
-			'db-error' => 'Database Error',
-			'php-error' => 'PHP Error',
+		$states = array(
+			'db-error'    => 'Database Error',
+			'php-error'   => 'PHP Error',
 			'maintenance' => 'Maintenance',
-		];
+		);
 
 		foreach ( $states as $key => $value ) {
 			$item = self::get( $key );
@@ -58,26 +99,37 @@ class Pages {
 		return $post_states;
 	}
 
+	/**
+	 * Summary of simple_error_pages_cpt
+	 *
+	 * @return void
+	 */
 	public function simple_error_pages_cpt() {
-		register_post_type( 'simple_error_pages',
+		register_post_type(
+			'simple_error_pages',
 			array(
-				'labels' => array(
-					'name' => __( 'Simple Error Pages', 'simple-error-pages' ),
+				'labels'              => array(
+					'name'          => __( 'Simple Error Pages', 'simple-error-pages' ),
 					'singular_name' => __( 'Error Page', 'simple-error-pages' ),
-					'add_new' => __( 'Add New', 'simple-error-pages' ),
+					'add_new'       => __( 'Add New', 'simple-error-pages' ),
 				),
-				'public' => true,
-				'has_archive' => false,
-				'show_in_rest' => true,
-				'show_in_menu' => 'tools.php',
-				'publicly_queryable' => false,
+				'public'              => true,
+				'has_archive'         => false,
+				'show_in_rest'        => true,
+				'show_in_menu'        => 'tools.php',
+				'publicly_queryable'  => false,
 				'exclude_from_search' => true,
-				'hierarchical' => true,
+				'hierarchical'        => true,
 
 			)
 		);
 	}
 
+	/**
+	 * Summary of admin_styles
+	 *
+	 * @return void
+	 */
 	public function admin_styles() {
 
 		$screen = get_current_screen();
@@ -85,29 +137,42 @@ class Pages {
 			return;
 		}
 		wp_enqueue_style( 'simple-error-pages', plugins_url( 'assets/css/admin.css', SIMPLE_ERROR_PAGES_PLUGIN_FILE ), array(), 1, 'all' );
-
 	}
 
-	function preview_column( $columns ) {
+	/**
+	 * Summary of preview_column
+	 *
+	 * @param mixed $columns Post Columns.
+	 *
+	 * @return array
+	 */
+	public function preview_column( $columns ) {
 		$columns = array(
-			'cb' => $columns['cb'],
-			'title' => $columns['title'],
+			'cb'           => $columns['cb'],
+			'title'        => $columns['title'],
 			'preview_link' => __( 'Preview', 'simple-error-pages' ),
-			'date' => $columns['date']
+			'date'         => $columns['date'],
 		);
 		return $columns;
 	}
 
-	function preview_link( $column, $post_id ) {
+	/**
+	 * Summary of preview_link
+	 *
+	 * @param mixed $column Name of the column.
+	 * @param mixed $post_id Post ID.
+	 *
+	 * @return void
+	 */
+	public function preview_link( $column, $post_id ) {
 
-		if ( $column !== 'preview_link' ) {
+		if ( 'preview_link' !== $column ) {
 			return;
 		}
 
-		$all = Pages::list();
+		$all       = self::list();
 		$page_name = null;
 		$is_dropin = false;
-
 
 		foreach ( $all as $key => $value ) {
 			if ( isset( $value['id'] ) && ( $value['id'] == $post_id ) ) {
@@ -121,8 +186,8 @@ class Pages {
 			return;
 		}
 		$post_status = get_post_status( $post_id );
-		$path = trailingslashit( WP_CONTENT_DIR ) . $page_name . '.php';
-		$url = trailingslashit( WP_CONTENT_URL ) . $page_name . '.php';
+		$path        = trailingslashit( WP_CONTENT_DIR ) . $page_name . '.php';
+		$url         = trailingslashit( WP_CONTENT_URL ) . $page_name . '.php';
 
 		if ( $is_dropin ) {
 			if ( file_exists( $path ) ) {
@@ -134,7 +199,5 @@ class Pages {
 				echo '<span class="button button-small button-disabled">' . esc_html__( 'Page Edit/Update is required to create the error page. Once the page is created, preview link will appear here.', 'simple-error-pages' ) . '</span>';
 			}
 		}
-
 	}
-
 }
