@@ -2,7 +2,7 @@
 /**
  * This file is responsible for loading the necessary classes.
  *
- * @package simple_error_pages_installed
+ * @package simple_error_pages
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
