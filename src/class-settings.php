@@ -28,6 +28,7 @@ class Settings {
 		add_filter( 'screen_options_show_screen', array( $this, 'disable_for_utility_screen' ) );
 		add_action( 'admin_init', array( $this, 'settings_init' ) );
 		add_action( 'update_option_simple_error_pages', array( $this, 'create_dropin' ), 10, 2 );
+		add_filter( 'plugin_action_links_' . SIMPLE_ERROR_PAGES_PLUGIN_BASE, array( $this, 'action_links' ) );
 	}
 
 	/**
@@ -135,5 +136,19 @@ class Settings {
 		if ( self::is_simple_error_pages_screen() ) {
 			require_once plugin_dir_path( SIMPLE_ERROR_PAGES_PLUGIN_FILE ) . '/templates/settings.php';
 		}
+	}
+
+	/**
+	 * Sets plugin action link
+	 *
+	 * @param array $links An array of existing action links for the plugin.
+	 * @return array Modified array of action links.
+	 */
+	public static function action_links( $links ) {
+		$url = 'edit.php?post_type=simple_error_pages';
+		return array_merge(
+			array( '<a href="' . admin_url( $url ) . '">Pages</a>' ),
+			$links
+		);
 	}
 }

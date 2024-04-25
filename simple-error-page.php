@@ -54,25 +54,6 @@ register_activation_hook( __FILE__, 'simple_error_pages_activate' );
 register_deactivation_hook( __FILE__, 'simple_error_pages_deactivate' );
 
 
-add_filter(
-	'plugin_action_links_' . SIMPLE_ERROR_PAGES_PLUGIN_BASE,
-	'simple_error_pages_plugin_action_link'
-);
-
-/**
- * Sets plugin action link
- *
- * @param array $links An array of existing action links for the plugin.
- * @return array Modified array of action links.
- */
-function simple_error_pages_plugin_action_link( $links ) {
-	$url = 'edit.php?post_type=simple_error_pages';
-	return array_merge(
-		array( '<a href="' . admin_url( $url ) . '">Pages</a>' ),
-		$links
-	);
-}
-
 // Initialize the class.
 if ( class_exists( 'SEPages\\Core' ) ) {
 	SEPages\Core::init();
