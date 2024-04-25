@@ -1,6 +1,6 @@
 <?php
 /**
- * Load the nacessary
+ * Loads the necessary classes and creates single instance of each.
  *
  * @package simple_error_pages
  */
@@ -12,13 +12,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Summary of Core
+ * Core class responsible for initializing the plugin.
  */
 final class Core {
 	/**
-	 * Summary of getServices
+	 * Retrieves the list of services.
 	 *
-	 * @return string[]
+	 * @return array The list of services.
 	 */
 	public static function get_services() {
 		return array(
@@ -44,11 +44,10 @@ final class Core {
 	}
 
 	/**
-	 * Summary of instantiate
+	 * Initialize the class.
 	 *
-	 * @param mixed $class_name Name of the class.
-	 *
-	 * @return object
+	 * @param string $class_name The class name.
+	 * @return mixed
 	 */
 	private static function instantiate( $class_name ) {
 		$service = new $class_name();

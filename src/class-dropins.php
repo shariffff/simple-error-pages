@@ -37,7 +37,7 @@ class Dropins {
 
 		$error_pages = Pages::list();
 
-		if ( ! in_array( $post_ID, array_column( $error_pages, 'id' ) ) ) {
+		if ( ! in_array( $post_ID, array_column( $error_pages, 'id' ), true ) ) {
 			return;
 		}
 
@@ -52,7 +52,7 @@ class Dropins {
 		$files = array();
 
 		foreach ( $error_pages as $page => $attr ) {
-			if ( isset( $attr['id'] ) && $attr['id'] == $post_ID ) {
+			if ( isset( $attr['id'] ) && absint( $attr['id'] ) === $post_ID ) {
 				$files[] = "$page.php";
 			}
 		}

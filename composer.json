@@ -13,5 +13,9 @@
     },
     "require-dev": {
         "wp-coding-standards/wpcs": "^3.0"
+    },
+    "scripts": {
+        "phpcs": "phpcs -p --colors --extensions=php --standard=WordPress --ignore=\"*/tests /*,*/node_modules /*,*/vendor/*\" ./",
+        "phpcbf": "phpcbf -p --colors --extensions=php --standard=WordPress --ignore=\"*/tests /*,*/node_modules /*,*/vendor/*\" ./"
     }
 }
