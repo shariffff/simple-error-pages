@@ -33,8 +33,6 @@ class Activate {
 	 * @return void
 	 */
 	public function default_error_pages() {
-		global $wp_filesystem;
-
 		$installed = get_option( 'simple_error_pages_installed' );
 		if ( $installed ) {
 			return;
@@ -44,6 +42,7 @@ class Activate {
 			require_once ABSPATH . 'wp-admin/includes/file.php';
 		}
 
+		global $wp_filesystem;
 		WP_Filesystem();
 
 		$template = SIMPLE_ERROR_PAGES_PLUGIN_DIR . '/templates/pattern.txt';

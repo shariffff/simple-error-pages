@@ -12,12 +12,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Summary of Settings
+ * Responsible for plugin settings.
  */
 class Settings {
 
 	/**
-	 * Summary of register
+	 * Registers the settings for the plugin.
+	 *
+	 * This method adds filters and actions to register the settings and handle related functionality.
 	 *
 	 * @return void
 	 */
@@ -29,11 +31,15 @@ class Settings {
 	}
 
 	/**
-	 * Summary of create_dropin
+	 * Creates drop-ins for error pages.
 	 *
-	 * @param mixed $old Old settings value.
-	 * @param mixed $new_value Current settings value.
+	 * This method is responsible for creating drop-ins for error pages based on the provided new values.
+	 * It takes an array of new values and filters out the ones that have an 'id' property.
+	 * If there are no values with an 'id' property, the method returns early.
+	 * Otherwise, it iterates over the filtered values and creates a drop-in for each page using the Dropins class.
 	 *
+	 * @param mixed $old The old value.
+	 * @param array $new_value The new value containing an array of error pages.
 	 * @return void
 	 */
 	public function create_dropin( $old, $new_value ) {
@@ -47,9 +53,9 @@ class Settings {
 	}
 
 	/**
-	 * Summary of is_simple_error_pages_screen
+	 * Checks if the current screen is the Simple Error Pages screen.
 	 *
-	 * @return bool
+	 * @return bool True if the current screen is the Simple Error Pages screen, false otherwise.
 	 */
 	public static function is_simple_error_pages_screen() {
 		if ( function_exists( 'get_current_screen' ) ) {
@@ -60,15 +66,15 @@ class Settings {
 	}
 
 	/**
-	 * Summary of disable_for_utility_screen
+	 * Determines whether the utility screen should be disabled for the Simple Error Pages plugin.
 	 *
-	 * @return bool
+	 * @return bool Returns true if the utility screen should be disabled, false otherwise.
 	 */
 	public function disable_for_utility_screen(): bool {
 		return ! self::is_simple_error_pages_screen();
 	}
 	/**
-	 * Summary of settings_init
+	 * Initializes the settings for the Simple Error Pages plugin.
 	 *
 	 * @return void
 	 */
@@ -78,7 +84,7 @@ class Settings {
 		add_settings_field( 'simple_error_pages_settings_field', '', array( $this, 'render_field' ), 'simple_error_pages_settings', 'simple_error_pages_settings_section' );
 	}
 	/**
-	 * Summary of render_field
+	 * Renders the plugin options markup.
 	 *
 	 * @return void
 	 */
@@ -106,7 +112,7 @@ class Settings {
 					wp_dropdown_pages(
 						array(
 							'name'              => esc_attr( $option_name ),
-							'show_option_none'  => __( '&mdash; Select &mdash;', 'simple-error-pages' ),
+							'show_option_none'  => esc_attr( '&mdash; Select &mdash;' ),
 							'option_none_value' => '0',
 							'selected'          => esc_attr( $selected ),
 							'post_type'         => 'simple_error_pages',
@@ -119,8 +125,9 @@ class Settings {
 			<?php
 		}
 	}
+
 	/**
-	 * Summary of load_settings_view
+	 * Loads the settings view if the current screen is the Simple Error Pages screen.
 	 *
 	 * @return void
 	 */

@@ -12,12 +12,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Summary of Pages
+ * Creates the CPT for the plugin and related settings.
  */
 class Pages {
 
 	/**
-	 * Summary of register
+	 * Registers the services.
 	 *
 	 * @return void
 	 */
@@ -41,11 +41,10 @@ class Pages {
 	}
 
 	/**
-	 * Summary of get
+	 * Retrieves a specific error page.
 	 *
-	 * @param mixed $page Get page id.
-	 *
-	 * @return mixed
+	 * @param string $page The name of the error page to retrieve.
+	 * @return array|null The error page data if found, null otherwise.
 	 */
 	public static function get( $page ) {
 		$all = self::list();
@@ -55,13 +54,13 @@ class Pages {
 		return null;
 	}
 
+
 	/**
-	 * Summary of remove_inline_edit
+	 * Removes the inline edit action for the specified post type.
 	 *
-	 * @param mixed $actions List of actions.
-	 * @param mixed $post Post instance.
-	 *
-	 * @return mixed
+	 * @param array    $actions The list of actions for the post.
+	 * @param \WP_Post $post The post object.
+	 * @return array The updated list of actions.
 	 */
 	public function remove_inline_edit( $actions, $post ) {
 		if ( 'simple_error_pages' === $post->post_type ) {
@@ -71,27 +70,31 @@ class Pages {
 	}
 
 	/**
-	 * Summary of custom_state
+	 * Adds custom post states for specific error page types.
 	 *
-	 * @param mixed $post_states Current states.
-	 * @param mixed $post Post instance.
-	 *
-	 * @return mixed
+	 * @param  array    $post_states Existing post states.
+	 * @param  \WP_Post $post The current post object.
+	 * @return array Modified post states.
 	 */
 	public function custom_state( $post_states, $post ) {
 
 		if ( 'simple_error_pages' !== get_post_type( $post->ID ) ) {
-			return;
+			return $post_states;
 		}
-		$states = array(
-			'db-error'    => 'Database Error',
-			'php-error'   => 'PHP Error',
-			'maintenance' => 'Maintenance',
+
+		$states = apply_filters(
+			'simple_error_page_states',
+			array(
+				'db-error'    => 'Database Error',
+				'php-error'   => 'PHP Error',
+				'maintenance' => 'Maintenance',
+			)
 		);
 
 		foreach ( $states as $key => $value ) {
+
 			$item = self::get( $key );
-			if ( isset( $item['id'] ) && ( $item['id'] ) == $post->ID ) {
+			if ( isset( $item['id'] ) && absint( $item['id'] ) === $post->ID ) {
 				$post_states[ "simple_error_page_for_$key" ] = $value;
 			}
 		}
@@ -99,10 +102,11 @@ class Pages {
 		return $post_states;
 	}
 
+
 	/**
-	 * Summary of simple_error_pages_cpt
+	 * Registers the custom post type 'simple_error_pages'.
 	 *
-	 * @return void
+	 * @since 1.0.0
 	 */
 	public function simple_error_pages_cpt() {
 		register_post_type(
@@ -126,9 +130,12 @@ class Pages {
 	}
 
 	/**
-	 * Summary of admin_styles
+	 * Enqueues the admin styles for the Simple Error Pages plugin.
 	 *
-	 * @return void
+	 * This function is responsible for enqueueing the CSS file 'admin.css' for the admin screen
+	 * 'edit-simple_error_pages'. It is called when the 'admin_enqueue_scripts' action is triggered.
+	 *
+	 * @since 1.0.0
 	 */
 	public function admin_styles() {
 
@@ -140,11 +147,10 @@ class Pages {
 	}
 
 	/**
-	 * Summary of preview_column
+	 * Modifies the columns displayed in the preview page of the plugin.
 	 *
-	 * @param mixed $columns Post Columns.
-	 *
-	 * @return array
+	 * @param array $columns The array of columns to be displayed.
+	 * @return array The modified array of columns.
 	 */
 	public function preview_column( $columns ) {
 		$columns = array(
@@ -157,11 +163,10 @@ class Pages {
 	}
 
 	/**
-	 * Summary of preview_link
+	 * Displays the preview link for a specific page in the admin column.
 	 *
-	 * @param mixed $column Name of the column.
-	 * @param mixed $post_id Post ID.
-	 *
+	 * @param string $column  The name of the column being displayed.
+	 * @param int    $post_id The ID of the post being displayed.
 	 * @return void
 	 */
 	public function preview_link( $column, $post_id ) {
@@ -175,7 +180,7 @@ class Pages {
 		$is_dropin = false;
 
 		foreach ( $all as $key => $value ) {
-			if ( isset( $value['id'] ) && ( $value['id'] == $post_id ) ) {
+			if ( isset( $value['id'] ) && ( $value['id'] === $post_id ) ) {
 				$page_name = $key;
 				$is_dropin = true;
 				break;
@@ -193,7 +198,7 @@ class Pages {
 			if ( file_exists( $path ) ) {
 				echo '<a target="_blank" href="' . esc_url( $url ) . '">
 				<svg style="fill: currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M19.5 4.5h-7V6h4.44l-5.97 5.97 1.06 1.06L18 7.06v4.44h1.5v-7Zm-13 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3H17v3a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h3V5.5h-3Z"></path></svg></a>';
-			} elseif ( 'publish' != $post_status ) {
+			} elseif ( 'publish' !== $post_status ) {
 				echo '<span class="button button-small button-disabled">' . esc_html__( 'Edit the Page and Publish it so see the preview link here.', 'simple-error-pages' ) . '</span>';
 			} else {
 				echo '<span class="button button-small button-disabled">' . esc_html__( 'Page Edit/Update is required to create the error page. Once the page is created, preview link will appear here.', 'simple-error-pages' ) . '</span>';

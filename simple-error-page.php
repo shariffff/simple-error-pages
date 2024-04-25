@@ -14,26 +14,26 @@
  * @package           simple_error_pages
  */
 
+// Exit if directly accessed.
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+// Return if not admin area.
+if ( ! is_admin() ) {
+	return;
+}
 
 define( 'SIMPLE_ERROR_PAGES_VERSION', '1.0' );
 define( 'SIMPLE_ERROR_PAGES_PLUGIN_FILE', __FILE__ );
 define( 'SIMPLE_ERROR_PAGES_PLUGIN_DIR', __DIR__ );
 define( 'SIMPLE_ERROR_PAGES_PLUGIN_BASE', plugin_basename( __FILE__ ) );
 
+require_once SIMPLE_ERROR_PAGES_PLUGIN_DIR . '/autoloader.php';
 
-require_once SIMPLE_ERROR_PAGES_PLUGIN_DIR . '/src/class-activate.php';
-require_once SIMPLE_ERROR_PAGES_PLUGIN_DIR . '/src/class-deactivate.php';
-require_once SIMPLE_ERROR_PAGES_PLUGIN_DIR . '/src/class-dropins.php';
-require_once SIMPLE_ERROR_PAGES_PLUGIN_DIR . '/src/class-pages.php';
-require_once SIMPLE_ERROR_PAGES_PLUGIN_DIR . '/src/class-settings.php';
-require_once SIMPLE_ERROR_PAGES_PLUGIN_DIR . '/src/class-core.php';
 
 /**
- * Summary of simple_error_pages_activate
+ * Runs on plugin activation.
  *
  * @return void
  */
@@ -42,7 +42,7 @@ function simple_error_pages_activate() {
 }
 
 /**
- * Summary of simple_error_pages_deactivate
+ * Runs on plugin deactivation.
  *
  * @return void
  */
@@ -63,7 +63,7 @@ add_filter(
  * Sets plugin action link
  *
  * @param array $links An array of existing action links for the plugin.
- * @return array Modified array of action links, with the custom link added.
+ * @return array Modified array of action links.
  */
 function simple_error_pages_plugin_action_link( $links ) {
 	$url = 'edit.php?post_type=simple_error_pages';
@@ -73,6 +73,7 @@ function simple_error_pages_plugin_action_link( $links ) {
 	);
 }
 
+// Initialize the class.
 if ( class_exists( 'SEPages\\Core' ) ) {
 	SEPages\Core::init();
 }
