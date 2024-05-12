@@ -25,9 +25,7 @@ function simple_error_pages_load_files( $class_name ) {
 
 	$relative_class = substr( $class_name, $len );
 
-	// Replace the namespace prefix with the base directory, replace namespace
-	// separators with directory separators in the relative class name, append
-	// with .php.
+	
 	$file = $base_dir . 'class-' . str_replace( '\\', DIRECTORY_SEPARATOR, $relative_class ) . '.php';
 
 	if ( file_exists( $file ) ) {
