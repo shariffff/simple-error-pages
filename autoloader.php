@@ -26,7 +26,7 @@ function simple_error_pages_load_files( $class_name ) {
 	$relative_class = substr( $class_name, $len );
 
 	
-	$file = $base_dir . 'class-' . str_replace( '\\', DIRECTORY_SEPARATOR, $relative_class ) . '.php';
+	$file = $base_dir . 'class-' . str_replace( '\\', DIRECTORY_SEPARATOR, strtolower($relative_class) ) . '.php';
 
 	if ( file_exists( $file ) ) {
 		require $file;
